@@ -7,7 +7,9 @@ const cors = require('cors');
 
 dotenv.config();
 const app = express();
-
+app.use(express.urlencoded({
+  extended:true
+}))
 // CORS configuration to allow localhost:3000 only and support credentials (cookies, auth tokens)
 app.use(cors({
   origin: 'http://localhost:3000', // Allow only the frontend running on localhost:3000
