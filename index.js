@@ -12,7 +12,7 @@ app.use(express.urlencoded({
 }))
 // CORS configuration to allow localhost:3000 only and support credentials (cookies, auth tokens)
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow only the frontend running on localhost:3000
+  origin: 'https://car-manage-client.vercel.app', // Allow only the frontend running on localhost:3000
   credentials: true, // Allow credentials like cookies or Authorization headers
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed HTTP methods
   allowedHeaders: ['Content-Type', 'Authorization'] // Specify which headers are allowed in requests
