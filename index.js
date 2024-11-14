@@ -1,4 +1,3 @@
-// app.js
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
@@ -9,22 +8,18 @@ const cors = require('cors');
 dotenv.config();
 const app = express();
 
-app.use(cors());
-
-// Alternatively, you can specify allowed origins like so:
- app.use(cors({
-   origin: 'http://localhost:3000'
- }));
+// CORS configuration to allow localhost:3000 only
+app.use(cors({
+  origin: 'http://localhost:3000'  // Allow only the frontend running on localhost:3000
+}));
 
 app.use(express.json());
-app.use('/api/auth', authRoutes);
-app.use('/api/cars', carRoutes);
+app.use('/auth', authRoutes);
+app.use('/cars', carRoutes);
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
-
-module.exports = app;
 
 const PORT = process.env.PORT || 3000;
 
@@ -33,8 +28,9 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-app.get('*',(req,res,next)=>{
-  res.status(200).json({
-    message:'bad request'
-  })
-})
+// Catch-all route for undefined routes
+app.use((req, res) => {
+  res.status(404).json({
+    message: 'Route not found'
+  });
+});
