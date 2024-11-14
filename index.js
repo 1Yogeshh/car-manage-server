@@ -10,7 +10,8 @@ const app = express();
 
 // CORS configuration to allow localhost:3000 only
 app.use(cors({
-  origin: 'http://localhost:3000'  // Allow only the frontend running on localhost:3000
+  origin: 'http://localhost:3000',
+  credentials:true  // Allow only the frontend running on localhost:3000
 }));
 
 app.use(express.json());
